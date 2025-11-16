@@ -57,6 +57,8 @@
             makeWrapper
             bashInteractive
 
+            cppcheck
+
             (with pkgs.rosPackages.rolling; buildEnv {
               paths = [
                 gz-ogre-next-vendor
@@ -68,9 +70,13 @@
           LD_LIBRARY_PATH = "${pkgs.libsodium}/lib";
 
           shellHook = ''
-            bashdir=$(mktemp -d)
-            makeWrapper "$(type -p bash)" "$bashdir/bash" "''${qtWrapperArgs[@]}"
-            exec "$bashdir/bash"
+            # Add Qt-related environment variables.
+            # https://discourse.nixos.org/t/python-qt-woes/11808/10
+            setQtEnvironment=$(mktemp)
+            random=$(openssl rand -base64 20 | sed "s/[^a-zA-Z0-9]//g")
+            makeWrapper "$(type -p sh)" "$setQtEnvironment" "''${qtWrapperArgs[@]}" --argv0 "$random"
+            sed "/$random/d" -i "$setQtEnvironment"
+            source "$setQtEnvironment"
           '';
         };
       });
