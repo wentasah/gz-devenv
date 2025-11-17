@@ -19,38 +19,53 @@
           packages = with pkgs; [
             colcon
             vcstool
-            pkg-config
 
+            # Dependencies from package.xml files
             assimp
-            cmake
-            ffmpeg
-            gdal
-            gts
-            pkg-config
-            spdlog
-            tinyxml-2
-            util-linux
-
+            binutils
+            bullet
             cli11
-            eigen
-            protobuf
-            python3Packages.pybind11
-
-            jsoncpp
-            curl
-            zeromq
-            libzip
-            libyaml
+            cmake
             cppzmq
-
+            curl
+            eigen
+            elfutils
+            ffmpeg
+            freeglut
+            freeimage
+            gbenchmark
+            gdal
+            gflags
+            glew
+            jsoncpp
+            libdwarf
+            libwebsockets
+            libxml2
+            libyaml
+            libzip
+            ogre1_9
+            pkg-config
+            protobuf
+            python3
+            python3Packages.protobuf
+            python3Packages.psutil
+            python3Packages.pybind11
+            python3Packages.pytest
+            qt6.qt5compat
             qt6.qtbase
             qt6.qtdeclarative
             qt6.qtsvg
-            qt6.qt5compat
-
-            libwebsockets
+            rubocop
             ruby
-            libsodium
+            spdlog
+            sqlite
+            tinyxml-2
+            urdfdom
+            util-linux
+            vulkan-loader
+            xorg.libXi
+            xorg.libXmu
+            xorg.xorgserver
 
             # this is for the shellhook portion
             qt6.wrapQtAppsHook
@@ -63,6 +78,7 @@
               paths = [
                 gz-ogre-next-vendor
                 gz-dartsim-vendor
+                zenoh-cpp-vendor
                 # ... other ROS packages
               ];
             })
