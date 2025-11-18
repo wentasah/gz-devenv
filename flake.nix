@@ -79,7 +79,9 @@
                 gz-ogre-next-vendor
                 gz-dartsim-vendor
                 zenoh-cpp-vendor
-                # ... other ROS packages
+
+                ament-clang-format
+                ament-cpplint
               ];
             })
           ];
