@@ -1,6 +1,6 @@
 {
   inputs = {
-    nix-ros-overlay.url = "github:lopsided98/nix-ros-overlay/master";
+    nix-ros-overlay.url = "github:lopsided98/nix-ros-overlay/develop";
     nixpkgs.follows = "nix-ros-overlay/nixpkgs";  # IMPORTANT!!!
   };
   outputs = { self, nix-ros-overlay, nixpkgs }:
@@ -9,9 +9,6 @@
         pkgs = import nixpkgs {
           inherit system;
           overlays = [ nix-ros-overlay.overlays.default ];
-          config.permittedInsecurePackages = [
-            "freeimage-3.18.0-unstable-2024-04-18"
-          ];
         };
       in {
         devShells.default = pkgs.mkShell {
@@ -32,7 +29,6 @@
             elfutils
             ffmpeg
             freeglut
-            freeimage
             gbenchmark
             gdal
             gflags
@@ -43,7 +39,6 @@
             libxml2
             libyaml
             libzip
-            ogre1_9
             pkg-config
             protobuf
             python3
@@ -76,7 +71,7 @@
 
             (with pkgs.rosPackages.rolling; buildEnv {
               paths = [
-                gz-ogre-next-vendor
+                (gz-ogre-next-vendor.override { freeimage = null; })
                 gz-dartsim-vendor
                 zenoh-cpp-vendor
 
