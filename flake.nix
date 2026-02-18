@@ -71,7 +71,15 @@
 
             (with pkgs.rosPackages.rolling; buildEnv {
               paths = [
-                (gz-ogre-next-vendor.override { freeimage = null; })
+                ((gz-ogre-next-vendor.override { freeimage = null; })
+                  .overrideAttrs ({
+                    postPatch ? "", ...
+                  }: {
+                    postPatch = postPatch + ''
+                      substituteInPlace CMakeLists.txt \
+                        --replace-fail 'CMAKE_ARGS' 'CMAKE_ARGS -DOGRE_CONFIG_ENABLE_STBI:BOOL=ON'
+                    '';
+                  }))
                 gz-dartsim-vendor
                 zenoh-cpp-vendor
 
